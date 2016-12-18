@@ -1,0 +1,15 @@
+{
+  "name": "node-os-calls",
+  "version": "0.0.2",
+  "description": "NPM module for OS-level calls",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:SE2018-Capstone/node-os-calls.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.4.0"
+  }
+}
