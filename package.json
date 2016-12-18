@@ -2,7 +2,7 @@
   "name": "node-os-calls",
   "version": "0.0.4",
   "description": "NPM module for OS-level calls",
-  "main": "./index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:SE2018-Capstone/node-os-calls.git"
