@@ -1,6 +1,6 @@
 {
   "name": "node-os-calls",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "NPM module for OS-level calls",
   "main": "./index.js",
   "repository": {
