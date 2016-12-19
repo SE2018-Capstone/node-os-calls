@@ -1,23 +1,22 @@
 #include <nan.h>
 
-#include <stdio.h>
+#ifdef OS_WIN
 #include <windows.h>
 #include <mmdeviceapi.h>
 #include <endpointvolume.h>
-
-
-const int maxValue = 10;
-int numberOfCalls = 0;
+#endif
 
 NAN_METHOD(whoAmI) {
-  auto message = Nan::New<v8::String>("I'm a Node Hero!").ToLocalChecked();
+  auto message = Nan::New<v8::String>("Volume!").ToLocalChecked();
   info.GetReturnValue().Set(message);
 }
 
 NAN_METHOD(getVolume)
 {
+  float currentVolume = 0;
+#if defined(OS_WIN)
   HRESULT hr;
-  // -------------------------
+
   CoInitialize(NULL);
   IMMDeviceEnumerator *deviceEnumerator = NULL;
   hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_INPROC_SERVER, __uuidof(IMMDeviceEnumerator), (LPVOID *)&deviceEnumerator);
@@ -32,19 +31,16 @@ NAN_METHOD(getVolume)
   defaultDevice->Release();
   defaultDevice = NULL;
 
-  // -------------------------
-  float currentVolume = 0;
   hr = endpointVolume->GetMasterVolumeLevelScalar(&currentVolume);
-  printf("Current volume as a scalar is: %f\n", currentVolume);
   endpointVolume->Release();
   CoUninitialize();
+#elseif
+  Nan::Throw
+#elif defined(OS_LINUX)
+  Nan::ThrowError("Not Implemented");
+#elif defined(OS_MAC)
+  Nan::ThrowError("Not Implemented");
+#endif
 
   info.GetReturnValue().Set(Nan::New<v8::Number>(currentVolume));
 }
-
-NAN_MODULE_INIT(Initialize) {
-  NAN_EXPORT(target, whoAmI);
-  NAN_EXPORT(target, getVolume);
-}
-
-NODE_MODULE(node_os_calls, Initialize)
