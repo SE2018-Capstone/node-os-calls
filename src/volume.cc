@@ -34,8 +34,6 @@ NAN_METHOD(getVolume)
   hr = endpointVolume->GetMasterVolumeLevelScalar(&currentVolume);
   endpointVolume->Release();
   CoUninitialize();
-#elseif
-  Nan::Throw
 #elif defined(OS_LINUX)
   Nan::ThrowError("Not Implemented");
 #elif defined(OS_MAC)
